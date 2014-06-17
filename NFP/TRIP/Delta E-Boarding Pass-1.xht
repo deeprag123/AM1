@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN"
+"http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Delta E-Boarding Pass</title>
+		<link rel="stylesheet" href="iphone.css" type="text/css" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+		<meta content='IE=Edge' http-equiv='X-UA-Compatibility' />
+
+		<script type="text/javascript">
+			function updateOrientation()
+			{
+				window.scrollTo(0,1);
+			}
+
+			window.onorientationchange = function() {
+				updateOrientation();
+			}
+
+			
+			var getFlightStatus = function()
+			{
+				var xhr = new XMLHttpRequest(); 
+				xhr.open("POST","https://st-services.delta.com/servicesinterface/interface",true); 
+				var divToUpdate = document.getElementById("flight-status");
+				divToUpdate.innerHTML = "Calling....";	
+				xhr.onreadystatechange = function() 
+				{ 
+				  var divToUpdate = document.getElementById("flight-status");
+				  if(xhr.readyState==4)
+				  { 
+            if(xhr.status==200)
+             {divToUpdate.innerHTML = xhr.responseText;}
+          }
+				  else
+				  { divToUpdate.innerHTML = "Response ready state " + xhr.readyState + "(status "+xhr.status+")";	 } 
+				};
+				xhr.setRequestHeader("Content-type", "text/xml");	
+				xhr.send("<request><appRequested>flightStatus</appRequested><eventId></eventId><parameters><fieldName>airline_code</fieldName><value>DL</value></parameters><parameters><fieldName>flight_number</fieldName><value>1986</value></parameters><parameters><fieldName>flight_date</fieldName><value>Today</value></parameters><parameters><fieldName>request</fieldName><value>main</value></parameters></request>");
+				divToUpdate.innerHTML = "Awaiting response....";	
+			}
+			
+
+		</script>
+	</head>
+
+	<body onload="updateOrientation(); getFlightStatus();">
+		<!-- upper body section (white background) -->
+			<!-- airline logo -->
+						
+				<div id="logo">
+					<img src="delta_logo.png" alt="Delta Logo" class="verticalAlign"/>
+				</div>
+				
+
+			<!-- ticket barcode section -->
+			<div id="barcode">
+				<img src="bc.png"
+					width="163"
+					height="166"
+					alt="Barcode" />
+			</div>
+			
+		 
+		<div id="upperBody">
+			<!-- end barcode -->
+			<p class="pad">
+				<!-- gate board and seat table section -->
+						
+				<div id="passengerDetailsSahdow">
+									
+				<!-- passenger details section -->								
+					<table id="passengerDetTable" border="0">
+					<tr class="detailLabel">
+						<td class="passenger">PASSENGER</td>
+						<td class="zone">ZONE</td>
+						<td class="seat">SEAT</td>
+					</tr>
+					<tr class="detailValue">
+						                  <td>Deepak Vijayaraga...</td>
+             
+						<td class="zone">2</td>
+						<td class="seat">38C</td>
+					</tr>
+					</table>
+					
+				</div>
+				
+				<div id="boardDetails">
+				
+					<table id="boardDetailsTable" border="0">
+					<tr class="detailLabel">
+						<td class="boards">BOARD</td>
+						<td class="gate" colspan="2">Gate</td>
+						<!--<td class="term">&nbsp;</td>-->
+					</tr>
+					<tr class="detailValue">
+						<td>5:20AM</td>						
+												<td class="gateClass" colspan="2">
+								
+							<a href="http://www.delta.com/flifo/servlet/DeltaFlifo?airline_code=DL&amp;flight_number=1634&amp;flight_date=04/03/2014&amp;request=main">-</a>
+						
+						</td>
+						<!--
+						<td class="zone">-</td>
+						<td class="seat"><div class="terminal"></div></td>
+						-->
+					</tr>
+					</table>
+					
+				</div>
+				
+			
+				
+				<!-- Warn banner section -->
+				<div id="arrow-padding"><div id="arrow-up"></div>
+				 <div id="arrow-border"></div>
+
+				</div>
+				<div id="gateWarnBanner">Gate and terminal may change - Check Monitors</div>
+				
+				
+				<!-- Flight Details section -->
+			<div id="flightContainer">
+				<div id="flightDetails">
+					
+					
+					<table id="flight">
+						<tr>
+							<td>FLIGHT</td>
+						</tr>					
+						<tr class="detailValue">
+							<td>DL1634</td>
+						</tr>
+					</table>
+						
+				<div id="departs">
+					<table id="departsTable">
+						<tr>
+							<td class="label">DEPARTS</td>
+							<td class="value lowerCase">6:00AM</td>
+						</tr>
+						<tr>
+							<td class="departInfoLeft upperCase">SEATTLE, WA, US (SEA)</td>
+							<td class="departInfoRight upperCase">THU, APR 03, 2014</td>
+						</tr>
+					</table>
+				
+				</div>
+					
+				<div id="arrives">	
+						<table id="departsTable">
+							<tr>
+								<td class="label">ARRIVES</td>
+								<td class="value lowerCase">08:56AM</td>
+							</tr>
+							<tr>
+								<td class="departInfoLeft upperCase">SALT LAKE CITY, UT, US (SLC)</td>
+								<td class="departInfoRight upperCase">THU, APR 03, 2014</td>
+							</tr>
+						</table>
+					
+				</div>	
+			</div>
+				
+				<div id="otherDetails">
+				
+					<div id="skyMiles">
+						<table class="otherDetailsTable">
+							<tr>
+								<td class="label">SKYMILES#</td>
+								<td class="value upperCase">									 
+																			-
+																	</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div id="class">
+						<table class="otherDetailsTable">
+							<tr>
+								<td class="label">CLASS</td>
+								<td class="value upperCase">ECONOMY(Q)</td>
+							</tr>
+						</table>
+					</div>
+									
+					<div id="conf">
+						<table class="otherDetailsTable">
+							<tr>
+								<td class="label">OPERATED BY</td>
+								<td class="value upperCase">DELTA AIR LINES INC</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div id="operatedBy">
+						<table class="otherDetailsTable">
+							<tr>
+								<td class="label">CONF.#</td>
+								<td class="value upperCase">GOCETZ</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div id="ticket">
+						<table class="otherDetailsTable">
+							<tr>
+								<td class="label">TICKET#</td>
+								<td class="value">00673938057011</td>
+							</tr>
+						</table>
+					</div>
+					
+											<div class="genMsg">SPECIAL MEAL REQUESTED</div>
+					
+					
+										
+					
+										<div class="genMsg"></div>
+				</div>
+			</div>
+			</p>
+			<!-- end details -->		
+		</div> 
+		<!-- end upperBody -->
+
+		<!-- lower body section  -->
+		
+		<p class="pad">
+			<div id="mobileCheckinLink">
+				<p><a href="http://www.delta.com/content/www/en_US/traveling-with-us/check-in/options.html#mobile">Review Mobile Check-In Steps <span id="rightArrow">></span></a></p>
+			</div>
+		</p>
+		
+		<!--
+		<div id="footer">
+  
+  			<table class="footer" border="0">
+   				<tr>
+				    <td><a href="http://www.delta.com/content/www/en_US/traveling-with-us/check-in/options.html#mobile">Review Mobile Check-In Steps</a></td>
+				    <td id="footerLink">
+					<div id="arrow-padding-footer">
+					<div id="arrow-border-right"></div>
+   					<div id="arrow-right"></div> 
+  					</div>
+				    </td>
+  	 			</tr>
+  			</table>
+	  	</div>
+		-->
+	</body>
+</html>
